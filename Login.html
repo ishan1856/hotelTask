@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sign Up</title>
+  <title>Login</title>
   <style>
     body {
       margin: 0;
@@ -17,7 +17,7 @@
       font-family: 'Arial', sans-serif;
     }
 
-    .signup-container {
+    .login-container {
       background-color: white;
       padding: 40px;
       border-radius: 15px;
@@ -26,19 +26,19 @@
       width: 100%;
     }
 
-    .signup-container h1 {
+    .login-container h1 {
       text-align: center;
       color: #333;
       margin-bottom: 30px;
       font-size: 26px;
     }
 
-    .signup-container form {
+    .login-container form {
       display: flex;
       flex-direction: column;
     }
 
-    .signup-container input {
+    .login-container input {
       padding: 10px;
       margin-bottom: 20px;
       border: 1px solid #ccc;
@@ -47,12 +47,12 @@
       transition: border-color 0.3s ease;
     }
 
-    .signup-container input:focus {
+    .login-container input:focus {
       border-color: #ff5e62;
       outline: none;
     }
 
-    .signup-container button {
+    .login-container button {
       padding: 12px;
       background-color: #ff5e62;
       color: white;
@@ -63,22 +63,46 @@
       transition: background-color 0.3s ease;
     }
 
-    .signup-container button:hover {
+    .login-container button:hover {
       background-color: #ff9966;
     }
 
-    .signup-container .link {
+    .login-container .link {
       text-align: center;
       margin-top: 10px;
     }
 
-    .signup-container .link a {
+    .login-container .link a {
       color: #ff5e62;
       text-decoration: none;
     }
 
-    .signup-container .link a:hover {
+    .login-container .link a:hover {
       text-decoration: underline;
+    }
+
+    /* Google Login Button Style */
+    .google-login-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .google-login-button img {
+      margin-right: 10px;
+    }
+
+    .google-login-button:hover {
+      background-color: #f1f1f1;
     }
 
     .google-login {
@@ -116,7 +140,8 @@
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
         console.log("User Info:", user);
-        // You can redirect the user or show a success message here
+        // Redirect to the main page (index.html) upon successful login
+        window.location.href = "index.html"; // Redirect here after successful login
       } catch (error) {
         console.error("Error during Google Sign-In:", error);
       }
@@ -130,24 +155,41 @@
 </head>
 <body>
 
-  <div class="signup-container">
-    <h1>Sign Up</h1>
+  <div class="login-container">
+    <h1>Login</h1>
     <form>
-      <input type="text" placeholder="Full Name" required>
       <input type="email" placeholder="Email" required>
       <input type="password" placeholder="Password" required>
-      <button type="submit">Create Account</button>
+      <button type="submit">Login</button>
     </form>
 
     <!-- Google Sign-in Button -->
-    <button id="google-signin-button" class="google-login">
-      Login with Google
-    </button>
+    <div class="google-login">
+      <button id="google-signin-button" class="google-login-button">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyg0GdhOuFAkCFyL_lTEx_gskdfRC_BeLqV9NCGgY_CjwiEihV5cZYimYPceXo1OHTwNo&usqp=CAU" alt="Google Icon" width="20" height="20">
+        Login with Google
+      </button>
+    </div>
 
     <div class="link">
-      <p>Already have an account? <a href="#">Log in</a></p>
+      <p>Don't have an account? <a href="#">Sign Up</a></p>
     </div>
   </div>
 
 </body>
 </html>
+<script>
+// Function to handle Google Sign-In
+async function handleGoogleSignIn() {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log("User Info:", user);
+    // Redirect to the main page (index.html) upon successful login
+    window.location.href = "index.html"; // Redirection to index.html after successful login
+  } catch (error) {
+    console.error("Error during Google Sign-In:", error);
+  }
+}
+</script>
